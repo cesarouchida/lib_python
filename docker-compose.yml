@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  pypi:
+    image: pypiserver/pypiserver
+    platform: linux/amd64/v8
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYPISERVER_PASSWD_FILE=/data/.htpasswd 
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/data/packages
+    restart: always
+    command: -P /data/packages/.htpasswd packages
